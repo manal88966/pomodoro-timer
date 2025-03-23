@@ -1,0 +1,59 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name ="viewport" content="width = device-width,initial-scale =1.0">
+    <title> pomodoro timer </title>
+    <link rel="stylesheet" href="main.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Bytesized&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/2a43b46bd6.js" crossorigin="anonymous"></script>
+
+   
+
+
+
+    <style >
+    	
+    </style>
+</head>
+<body>
+	<section>
+		<div class="container">
+			<h1>YOUR POMODORO</h1>
+		 <div class="painel">
+			<p id="focus">focus</p>
+            <p id="break">break</p>
+		 </div>
+		  <div class ="timer">
+		  	<div class="circle">
+		  		<div class="time">
+		  			<p id ="minutes"></p>
+		  			<p>:</p>
+		  			<p id ="seconds"></p>
+		  			
+		  		</div>
+		  	</div>
+		 	
+		  </div>
+		  <div class="controls">
+		  <button id="start" onclick ="start()"><i class="fa-solid fa-play"></i></button>
+
+		  	<a id="reset" href="javascript:void(0);" onclick="reset()">
+    <i class="fa-solid fa-arrow-rotate-right"></i>
+</a>
+
+		  	
+		  </div>
+		</div>
+	</section>
+   <script src="./main.js"></script>
+    
+    
+
+  
+</body>
+</html>
