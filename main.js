@@ -4,79 +4,99 @@ let focusTitleElement = document.getElementById('focus');
 let breakTitleElement = document.getElementById('break');
 let focusTime = 25;
 let breakTime = 5;
+
 let seconds = 59;
-let timer = null; // Stocker l'intervalle ici
 
-// Affichage initial au chargement de la page
+// Array of quotes
+const quotes = [
+    "The key to success is to focus on goals, not obstacles.",
+    "Success is the sum of small efforts, repeated day in and day out.",
+    "Believe in yourself and all that you are.",
+    "Your only limit is your mind.",
+    "The only way to do great work is to love what you do."
+];
+
+// Function to display a random quote
+function displayRandomQuote() {
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    document.getElementById('quote').innerText = randomQuote;
+}
+
+// Display random quote on page load
 window.onload = () => {
+    displayRandomQuote();
     document.getElementById('minutes').innerHTML = focusTime;
-    document.getElementById('seconds').innerHTML = "00";
-
+    document.getElementById('seconds').innerHTML = seconds;
     focusTitleElement.classList.add('active');
-};
+}
 
-// Fonction pour démarrer le minuteur
+// Start timer function
 function start() {
-    // Changer l'affichage des boutons
+    // Hide start button and show reset button
     document.getElementById('start').style.display = "none";
     document.getElementById('reset').style.display = "block";
+
+    // Reset seconds
+    seconds = 59;
 
     let focusMinutes = focusTime - 1;
     let breakMinutes = breakTime - 1;
     let breakCount = 0;
 
-    // Fonction de compte à rebours
+    // Countdown function
     let timeFunction = () => {
-        // Mettre à jour l'affichage
+        // Update the display
         document.getElementById('minutes').innerHTML = focusMinutes;
-        document.getElementById('seconds').innerHTML = seconds < 10 ? "0" + seconds : seconds;
+        document.getElementById('seconds').innerHTML = seconds;
 
-        // Décrémenter les secondes
-        seconds--;
+        // Decrease seconds
+        seconds = seconds - 1;
 
         if (seconds == -1) {
-            seconds = 59;
-            focusMinutes--;
+            focusMinutes = focusMinutes - 1;
 
             if (focusMinutes == -1) {
                 if (breakCount % 2 == 0) {
-                    // Passer au break
+                    // Start break
                     focusMinutes = breakMinutes;
                     breakCount++;
-
-                    // Changer l'affichage du panneau
+                    // Change the panel
                     focusTitleElement.classList.remove('active');
                     breakTitleElement.classList.add('active');
+                    displayRandomQuote();  // Display a new quote when the break starts
                 } else {
-                    // Retour au focus
+                    // Continue focus
                     focusMinutes = focusTime;
                     breakCount++;
-
-                    // Changer l'affichage du panneau
+                    // Change the panel
                     breakTitleElement.classList.remove('active');
                     focusTitleElement.classList.add('active');
+                    displayRandomQuote();  // Display a new quote when focus starts
                 }
             }
+            seconds = 59;
         }
     };
 
-    // Démarrer le compte à rebours
-    timer = setInterval(timeFunction, 1000);
+    // Start countdown
+    setInterval(timeFunction, 1000);
 }
 
-// Fonction pour réinitialiser le minuteur
+// Reset function
 function reset() {
-    clearInterval(timer); // Arrête le minuteur
-    document.getElementById('start').style.display = "block";
-    document.getElementById('reset').style.display = "none";
+    // Reset the timer to initial values
+    seconds = 59;
+    document.getElementById('minutes').innerHTML = focusTime;
+    document.getElementById('seconds').innerHTML = seconds;
 
+    // Reset the panels
     focusTitleElement.classList.add('active');
     breakTitleElement.classList.remove('active');
 
-    focusTime = 25;
-    breakTime = 5;
-    seconds = 0;
+    // Reset the buttons
+    document.getElementById('start').style.display = "block";
+    document.getElementById('reset').style.display = "none";
 
-    document.getElementById('minutes').innerHTML = focusTime;
-    document.getElementById('seconds').innerHTML = "00";
+    // Display a new random quote
+    displayRandomQuote();
 }
